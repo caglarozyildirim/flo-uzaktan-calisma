@@ -389,6 +389,7 @@
                                 <th>Pozisyon</th>
                                 <th>Birim</th>
                                 <th>Grup Adı</th>
+                                <th>Talep Açıklaması</th>
                                 <th>Lokasyon</th>
                                 <th>Tarih Aralığı</th>
                                 <th>Gün</th>
@@ -414,6 +415,11 @@
                         <td style="font-size: 13px;">${request.position}</td>
                         <td style="font-size: 13px;">${request.birim}</td>
                         <td style="font-size: 13px;">${request.grupAdi}</td>
+                        <td style="max-width: 300px;">
+                            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${request.locationDetail}">
+                                ${request.locationDetail}
+                            </div>
+                        </td>
                         <td>${request.workLocationText}</td>
                         <td style="white-space: nowrap;">
                             ${new Date(request.startDate).toLocaleDateString('tr-TR')} -
