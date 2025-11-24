@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofis Dışı Çalışma Modülü - FLOConnect</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .landing-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #8B4367 0%, #9F5577 50%, #E67E50 100%);
+        }
+
+        .landing-header {
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .landing-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .landing-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .landing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 60px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .landing-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .landing-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-burgundy);
+            margin-bottom: 16px;
+        }
+
+        .landing-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .role-selector {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+            border: 3px solid #E0E0E0;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary-orange);
+            box-shadow: 0 8px 24px rgba(231, 119, 81, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .role-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .role-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-burgundy);
+            margin-bottom: 8px;
+        }
+
+        .role-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .features-list {
+            background: #F8F9FA;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            margin-top: 32px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="landing-header">
+            <div class="landing-logo">FLO<span style="font-weight: 300;">Connect</span></div>
+        </div>
+
+        <div class="landing-content">
+            <div class="landing-card">
+                <div class="landing-icon">💼</div>
+                <h1 class="landing-title">Ofis Dışı Çalışma Modülü</h1>
+                <p class="landing-description">
+                    Ofis dışından çalışma taleplerinizi kolayca oluşturun, yönetin ve takip edin.
+                    Tamamen dijital, hızlı ve kullanıcı dostu süreç.
+                </p>
+
+                <div class="role-selector">
+                    <a href="yeni-talep.html" class="role-card">
+                        <div class="role-icon">👤</div>
+                        <div class="role-name">Çalışan Girişi</div>
+                        <div class="role-desc">Yeni talep oluştur veya mevcut taleplerini görüntüle</div>
+                    </a>
+
+                    <a href="yonetici-onaylar.html" class="role-card">
+                        <div class="role-icon">👨‍💼</div>
+                        <div class="role-name">Yönetici Girişi</div>
+                        <div class="role-desc">Ekip taleplerini onayla ve yönet</div>
+                    </a>
+
+                    <a href="raporlar.html" class="role-card">
+                        <div class="role-icon">📊</div>
+                        <div class="role-name">Raporlama</div>
+                        <div class="role-desc">Detaylı raporlar ve analizler (Yetkili)</div>
+                    </a>
+                </div>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div>Şehir içi, şehir dışı ve yurt dışı çalışma seçenekleri</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div>Hızlı onay süreci</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <div>Mobil uyumlu tasarım</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <div>Detaylı raporlama ve analiz</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize mock data if needed
+        if (!localStorage.getItem('users')) {
+            const users = [
+                {
+                    id: 1,
+                    name: 'Berat Tanrıverdi',
+                    email: 'berat.tanriverdi@flo.com.tr',
+                    sicil: 'FLO-001',
+                    position: 'Kıdemli Uzman',
+                    department: 'Ürün Tasarım/Kullanıcı Deneyimi',
+                    birim: 'Dijital Dönüşüm',
+                    grupAdi: 'Dijital Ürün Geliştirme',
+                    manager: 'Ahmet Yılmaz',
+                    managerEmail: 'ahmet.yilmaz@flo.com.tr',
+                    hireDate: '2020-03-15'
+                }
+            ];
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        if (!localStorage.getItem('remoteworkRequests')) {
+            localStorage.setItem('remoteworkRequests', JSON.stringify([]));
+        }
+    </script>
+</body>
+</html>

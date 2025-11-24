@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofis Dışı Çalışma Talebi - FLOConnect</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Flatpickr Özel Stiller */
+        .flatpickr-calendar {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            border: 1px solid #E0E0E0;
+        }
+        .flatpickr-current-month {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-burgundy);
+        }
+        .flatpickr-weekdays {
+            background: #F5F5F5;
+        }
+        .flatpickr-day.selected {
+            background: var(--primary-orange) !important;
+            border-color: var(--primary-orange) !important;
+        }
+        .flatpickr-day.today {
+            border-color: var(--primary-burgundy);
+            color: var(--primary-burgundy);
+            font-weight: 600;
+        }
+        .flatpickr-day:hover:not(.selected) {
+            background: #FFE8DC;
+            border-color: var(--primary-orange);
+        }
+        .flatpickr-months .flatpickr-prev-month:hover svg,
+        .flatpickr-months .flatpickr-next-month:hover svg {
+            fill: var(--primary-orange);
+        }
+
+        .work-location-options {
+            display: grid;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .work-location-card {
+            position: relative;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #FFFFFF;
+        }
+
+        .work-location-card:hover {
+            border-color: var(--primary-orange);
+            box-shadow: 0 4px 12px rgba(231, 119, 81, 0.15);
+        }
+
+        .work-location-card input[type="radio"] {
+            display: none;
+        }
+
+        .work-location-card input[type="radio"]:checked + .card-content {
+            border-color: var(--primary-orange);
+        }
+
+        .work-location-card.selected {
+            border-color: var(--primary-orange);
+            background: linear-gradient(135deg, #FFF5F0 0%, #FFFFFF 100%);
+        }
+
+        .card-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .card-text {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-burgundy);
+            margin-bottom: 4px;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .radio-indicator {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #E0E0E0;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .work-location-card.selected .radio-indicator {
+            border-color: var(--primary-orange);
+            background: var(--primary-orange);
+        }
+
+        .work-location-card.selected .radio-indicator::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">FLO<span style="font-weight: 300;">Connect</span></div>
+        <button class="notification-btn">
+            🔔 Bildirimler
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">BT</div>
+                <div class="user-name">Berat Tanrıverdi</div>
+                <div class="user-title">Ürün Tasarım/Kullanıcı Deneyimi Müd.</div>
+                <div class="user-role">Kıdemli Uzman</div>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">📊</span>
+                            QR Giriş - Çıkış
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">🏖️</span>
+                            İzin Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">✈️</span>
+                            Seyahat Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="yeni-talep.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            Ofis Dışı Çalışma
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="yeni-talep.html" class="sub-link active">Yeni Talep</a></li>
+                            <li><a href="taleplerim.html" class="sub-link">Taleplerim</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">📄</span>
+                            Bordro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            Ayarlar
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a>
+                <span class="separator">›</span>
+                <a href="#">Ofis Dışı Çalışma</a>
+                <span class="separator">›</span>
+                <span>Yeni Talep</span>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <div class="form-header">
+                    <h1>Ofis Dışı Çalışma Talebi</h1>
+                    <p class="form-description">Lütfen ofis dışı çalışma talebinizi aşağıdaki formu doldurarak oluşturun.</p>
+                </div>
+
+                <form id="remoteworkForm">
+                    <!-- Section 1: Çalışma Lokasyonu -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <span class="section-number">📍</span>
+                            Çalışma Lokasyonu
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Ofis Dışı Çalışma Alanı</label>
+                            <div class="work-location-options">
+                                <label class="work-location-card" data-location="city-local">
+                                    <input type="radio" name="workLocation" value="city-local" required>
+                                    <div class="card-content">
+                                        <div class="card-icon">🏙️</div>
+                                        <div class="card-text">
+                                            <div class="card-title">Şehir İçi Görevlendirme</div>
+                                            <div class="card-description">Şehir içinde farklı bir lokasyondan çalışma</div>
+                                        </div>
+                                        <div class="radio-indicator"></div>
+                                    </div>
+                                </label>
+
+                                <label class="work-location-card" data-location="city-external">
+                                    <input type="radio" name="workLocation" value="city-external" required>
+                                    <div class="card-content">
+                                        <div class="card-icon">🚗</div>
+                                        <div class="card-text">
+                                            <div class="card-title">Şehir Dışı Görevlendirme</div>
+                                            <div class="card-description">Farklı bir şehirden çalışma</div>
+                                        </div>
+                                        <div class="radio-indicator"></div>
+                                    </div>
+                                </label>
+
+                                <label class="work-location-card" data-location="international">
+                                    <input type="radio" name="workLocation" value="international" required>
+                                    <div class="card-content">
+                                        <div class="card-icon">🌍</div>
+                                        <div class="card-text">
+                                            <div class="card-title">Yurt Dışı Görevlendirme</div>
+                                            <div class="card-description">Yurt dışından çalışma</div>
+                                        </div>
+                                        <div class="radio-indicator"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Detay Açıklama</label>
+                            <textarea id="locationDetail" class="form-input" rows="4" placeholder="Lütfen çalışacağınız lokasyon ve çalışma detaylarını giriniz..." required></textarea>
+                            <div class="form-hint">Nerede çalışacağınızı, ne kadar süreyle çalışacağınızı ve çalışma gerekçenizi detaylı olarak açıklayınız.</div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Tarih Bilgileri -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <span class="section-number">📅</span>
+                            Tarih Bilgileri
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label required">Başlangıç Tarihi</label>
+                                <input type="text" id="startDate" class="form-input" placeholder="Tarih seçiniz" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Bitiş Tarihi</label>
+                                <input type="text" id="endDate" class="form-input" placeholder="Tarih seçiniz" required>
+                            </div>
+                        </div>
+
+                        <div id="workDaysInfo" style="margin-top: 16px; padding: 14px; background: linear-gradient(135deg, #E6F3FF 0%, #F0F9FF 100%); border: 2px solid #3B82F6; border-radius: 8px; display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 12px; color: #1E40AF; font-weight: 600; margin-bottom: 4px;">TOPLAM GÜN SAYISI</div>
+                                    <div style="font-size: 20px; font-weight: 700; color: #1E3A8A;" id="totalDays">0 Gün</div>
+                                </div>
+                                <div style="font-size: 32px;">📊</div>
+                            </div>
+                            <div style="margin-top: 8px; font-size: 11px; color: #1E40AF; font-weight: 500;">
+                                <span id="dateRange">Tarih aralığı otomatik hesaplanır</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Ek Notlar -->
+                    <div class="form-section">
+                        <div class="section-title">
+                            <span class="section-number">📝</span>
+                            Ek Notlar (İsteğe Bağlı)
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ek Açıklamalar</label>
+                            <textarea id="additionalNotes" class="form-input" rows="4" placeholder="Varsa eklemek istediğiniz notları buraya yazabilirsiniz..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back()">İptal</button>
+                        <button type="submit" class="btn btn-primary">Talebi Gönder</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
+
+    <script>
+        // Initialize localStorage if needed
+        if (!localStorage.getItem('remoteworkRequests')) {
+            localStorage.setItem('remoteworkRequests', JSON.stringify([]));
+        }
+
+        if (!localStorage.getItem('users')) {
+            // Mock user data
+            const users = [
+                {
+                    id: 1,
+                    name: 'Berat Tanrıverdi',
+                    email: 'berat.tanriverdi@flo.com.tr',
+                    sicil: 'FLO-001',
+                    position: 'Kıdemli Uzman',
+                    department: 'Ürün Tasarım/Kullanıcı Deneyimi',
+                    birim: 'Dijital Dönüşüm',
+                    grupAdi: 'Dijital Ürün Geliştirme',
+                    manager: 'Ahmet Yılmaz',
+                    managerEmail: 'ahmet.yilmaz@flo.com.tr',
+                    hireDate: '2020-03-15'
+                }
+            ];
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Current user
+        const currentUser = JSON.parse(localStorage.getItem('users'))[0];
+
+        // Work location card selection
+        document.querySelectorAll('.work-location-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                document.querySelectorAll('.work-location-card').forEach(c => c.classList.remove('selected'));
+
+                // Add selected class to clicked card
+                this.classList.add('selected');
+
+                // Check the radio button
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
+
+        // Turkish holidays for 2025-2027
+        const turkishHolidays = [
+            // 2025
+            "2025-01-01", // Yılbaşı
+            "2025-03-30", "2025-03-31", "2025-04-01", // Ramazan Bayramı
+            "2025-04-23", // Ulusal Egemenlik ve Çocuk Bayramı
+            "2025-05-01", // İşçi Bayramı
+            "2025-05-19", // Gençlik ve Spor Bayramı
+            "2025-06-06", "2025-06-07", "2025-06-08", "2025-06-09", // Kurban Bayramı
+            "2025-07-15", // Demokrasi ve Milli Birlik Günü
+            "2025-08-30", // Zafer Bayramı
+            "2025-10-29", // Cumhuriyet Bayramı
+
+            // 2026
+            "2026-01-01",
+            "2026-03-19", "2026-03-20", "2026-03-21", // Ramazan Bayramı
+            "2026-04-23",
+            "2026-05-01",
+            "2026-05-19",
+            "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", // Kurban Bayramı
+            "2026-07-15",
+            "2026-08-30",
+            "2026-10-29",
+
+            // 2027
+            "2027-01-01",
+            "2027-03-09", "2027-03-10", "2027-03-11", // Ramazan Bayramı
+            "2027-04-23",
+            "2027-05-01",
+            "2027-05-16", "2027-05-17", "2027-05-18", "2027-05-19", // Kurban Bayramı
+            "2027-08-30",
+            "2027-10-29"
+        ];
+
+        // Date calculation function
+        function calculateTotalDays() {
+            const startDate = startDatePicker.selectedDates[0];
+            const endDate = endDatePicker.selectedDates[0];
+            const workDaysInfo = document.getElementById('workDaysInfo');
+            const totalDays = document.getElementById('totalDays');
+            const dateRange = document.getElementById('dateRange');
+
+            if (startDate && endDate) {
+                // Calculate days (inclusive)
+                const timeDiff = endDate.getTime() - startDate.getTime();
+                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+
+                // Update display
+                totalDays.textContent = `${daysDiff} Gün`;
+                dateRange.textContent = `${startDate.toLocaleDateString('tr-TR')} - ${endDate.toLocaleDateString('tr-TR')} arası`;
+                workDaysInfo.style.display = 'block';
+            } else {
+                workDaysInfo.style.display = 'none';
+            }
+        }
+
+        // Initialize Flatpickr for start date
+        const startDatePicker = flatpickr("#startDate", {
+            locale: "tr",
+            dateFormat: "d.m.Y",
+            minDate: "today",
+            allowInput: true,
+            clickOpens: true,
+            onDayCreate: function(dObj, dStr, fp, dayElem) {
+                const date = dayElem.dateObj;
+                const dateStr = date.getFullYear() + '-' +
+                              String(date.getMonth() + 1).padStart(2, '0') + '-' +
+                              String(date.getDate()).padStart(2, '0');
+
+                if (turkishHolidays.includes(dateStr)) {
+                    dayElem.style.backgroundColor = "#FFE5E5";
+                    dayElem.style.color = "#CC0000";
+                    dayElem.style.fontWeight = "bold";
+                    dayElem.title = "Resmi Tatil";
+                }
+            },
+            onChange: function(selectedDates, dateStr, instance) {
+                // Set minimum date for end date
+                if (selectedDates.length > 0) {
+                    endDatePicker.set('minDate', selectedDates[0]);
+                }
+                calculateTotalDays();
+            }
+        });
+
+        // Initialize Flatpickr for end date
+        const endDatePicker = flatpickr("#endDate", {
+            locale: "tr",
+            dateFormat: "d.m.Y",
+            minDate: "today",
+            allowInput: true,
+            clickOpens: true,
+            onDayCreate: function(dObj, dStr, fp, dayElem) {
+                const date = dayElem.dateObj;
+                const dateStr = date.getFullYear() + '-' +
+                              String(date.getMonth() + 1).padStart(2, '0') + '-' +
+                              String(date.getDate()).padStart(2, '0');
+
+                if (turkishHolidays.includes(dateStr)) {
+                    dayElem.style.backgroundColor = "#FFE5E5";
+                    dayElem.style.color = "#CC0000";
+                    dayElem.style.fontWeight = "bold";
+                    dayElem.title = "Resmi Tatil";
+                }
+            },
+            onChange: function(selectedDates, dateStr, instance) {
+                calculateTotalDays();
+            }
+        });
+
+        // Form submission
+        document.getElementById('remoteworkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const workLocation = document.querySelector('input[name="workLocation"]:checked');
+            const locationDetail = document.getElementById('locationDetail').value.trim();
+            const startDate = startDatePicker.selectedDates[0];
+            const endDate = endDatePicker.selectedDates[0];
+            const additionalNotes = document.getElementById('additionalNotes').value.trim();
+
+            // Validation
+            if (!workLocation) {
+                alert('Lütfen çalışma lokasyonu seçiniz.');
+                return;
+            }
+
+            if (!locationDetail) {
+                alert('Lütfen detay açıklama giriniz.');
+                return;
+            }
+
+            if (!startDate || !endDate) {
+                alert('Lütfen başlangıç ve bitiş tarihlerini seçiniz.');
+                return;
+            }
+
+            // Calculate total days
+            const timeDiff = endDate.getTime() - startDate.getTime();
+            const totalDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+
+            // Get location text
+            const locationCard = document.querySelector(`.work-location-card[data-location="${workLocation.value}"]`);
+            const locationText = locationCard.querySelector('.card-title').textContent;
+
+            // Create request object
+            const request = {
+                id: 'RW-' + Date.now(),
+                userId: currentUser.id,
+                userSicil: currentUser.sicil,
+                userName: currentUser.name,
+                userEmail: currentUser.email,
+                position: currentUser.position,
+                department: currentUser.department,
+                birim: currentUser.birim,
+                grupAdi: currentUser.grupAdi,
+                manager: currentUser.manager,
+                managerEmail: currentUser.managerEmail,
+                hireDate: currentUser.hireDate,
+                workLocation: workLocation.value,
+                workLocationText: locationText,
+                locationDetail: locationDetail,
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                totalDays: totalDays,
+                additionalNotes: additionalNotes,
+                status: 'pending', // pending, approved, rejected
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            const requests = JSON.parse(localStorage.getItem('remoteworkRequests') || '[]');
+            requests.push(request);
+            localStorage.setItem('remoteworkRequests', JSON.stringify(requests));
+
+            // Show success message
+            alert('Talebiniz başarıyla oluşturuldu! Yöneticinizin onayına sunulmuştur.');
+
+            // Redirect to requests page
+            window.location.href = 'taleplerim.html';
+        });
+    </script>
+</body>
+</html>

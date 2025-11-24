@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taleplerim - FLOConnect</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .requests-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .request-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 2px solid #E0E0E0;
+            transition: all 0.3s ease;
+        }
+
+        .request-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F0F0F0;
+        }
+
+        .request-id {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-burgundy);
+        }
+
+        .request-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .request-body {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 160px;
+            font-size: 13px;
+            color: #666;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: #FFF3E0;
+            color: #E67E50;
+        }
+
+        .badge-approved {
+            background: #E8F5E9;
+            color: #4CAF50;
+        }
+
+        .badge-rejected {
+            background: #FFEBEE;
+            color: #F44336;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .detail-text {
+            background: #F8F9FA;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .new-request-btn {
+            background: linear-gradient(135deg, #E67E50 0%, #D56D42 100%);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .new-request-btn:hover {
+            box-shadow: 0 6px 20px rgba(231, 119, 81, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">FLO<span style="font-weight: 300;">Connect</span></div>
+        <button class="notification-btn">
+            🔔 Bildirimler
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">BT</div>
+                <div class="user-name">Berat Tanrıverdi</div>
+                <div class="user-title">Ürün Tasarım/Kullanıcı Deneyimi Müd.</div>
+                <div class="user-role">Kıdemli Uzman</div>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">📊</span>
+                            QR Giriş - Çıkış
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">🏖️</span>
+                            İzin Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">✈️</span>
+                            Seyahat Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            Ofis Dışı Çalışma
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="yeni-talep.html" class="sub-link">Yeni Talep</a></li>
+                            <li><a href="taleplerim.html" class="sub-link active">Taleplerim</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">📄</span>
+                            Bordro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            Ayarlar
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a>
+                <span class="separator">›</span>
+                <a href="#">Ofis Dışı Çalışma</a>
+                <span class="separator">›</span>
+                <span>Taleplerim</span>
+            </div>
+
+            <!-- Page Header -->
+            <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="font-size: 28px; color: var(--primary-burgundy); margin-bottom: 8px;">Taleplerim</h1>
+                    <p style="color: #666; font-size: 14px;">Ofis dışı çalışma taleplerinizi buradan takip edebilirsiniz.</p>
+                </div>
+                <a href="yeni-talep.html" class="new-request-btn">
+                    ➕ Yeni Talep Oluştur
+                </a>
+            </div>
+
+            <!-- Requests Grid -->
+            <div id="requestsContainer"></div>
+        </main>
+    </div>
+
+    <script>
+        // Current user
+        const currentUser = JSON.parse(localStorage.getItem('users'))[0];
+
+        function loadRequests() {
+            const requests = JSON.parse(localStorage.getItem('remoteworkRequests') || '[]');
+
+            // Filter requests for current user
+            const userRequests = requests.filter(r => r.userId === currentUser.id);
+
+            // Sort by created date (newest first)
+            userRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            displayRequests(userRequests);
+        }
+
+        function displayRequests(requests) {
+            const container = document.getElementById('requestsContainer');
+
+            if (requests.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <h3>Henüz Talep Oluşturmadınız</h3>
+                        <p>Ofis dışı çalışma talebi oluşturmak için yeni talep formu doldurun.</p>
+                        <a href="yeni-talep.html" class="new-request-btn">
+                            ➕ İlk Talebinizi Oluşturun
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="requests-grid">';
+
+            requests.forEach(request => {
+                const locationIcon = getLocationIcon(request.workLocation);
+                const statusBadge = getStatusBadge(request.status);
+
+                html += `
+                    <div class="request-card">
+                        <div class="request-header">
+                            <div>
+                                <div class="request-id">${request.id}</div>
+                                <div class="request-date">${new Date(request.createdAt).toLocaleDateString('tr-TR')} tarihinde oluşturuldu</div>
+                            </div>
+                            ${statusBadge}
+                        </div>
+
+                        <div class="request-body">
+                            <div class="info-row">
+                                <div class="info-label">Çalışma Lokasyonu:</div>
+                                <div class="info-value">
+                                    <span class="location-badge">
+                                        ${locationIcon} ${request.workLocationText}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Detay Açıklama:</div>
+                                <div class="info-value">
+                                    <div class="detail-text">${request.locationDetail}</div>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Tarih Aralığı:</div>
+                                <div class="info-value">
+                                    ${new Date(request.startDate).toLocaleDateString('tr-TR')} -
+                                    ${new Date(request.endDate).toLocaleDateString('tr-TR')}
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Toplam Gün:</div>
+                                <div class="info-value">${request.totalDays} Gün</div>
+                            </div>
+
+                            ${request.additionalNotes ? `
+                            <div class="info-row">
+                                <div class="info-label">Ek Notlar:</div>
+                                <div class="info-value">
+                                    <div class="detail-text">${request.additionalNotes}</div>
+                                </div>
+                            </div>
+                            ` : ''}
+
+                            <div class="info-row">
+                                <div class="info-label">Yönetici:</div>
+                                <div class="info-value">${request.manager}</div>
+                            </div>
+
+                            ${request.status === 'approved' ? `
+                            <div class="info-row">
+                                <div class="info-label">Onaylayan:</div>
+                                <div class="info-value">${request.approvedBy || request.manager}</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Onay Tarihi:</div>
+                                <div class="info-value">${new Date(request.approvedAt).toLocaleDateString('tr-TR')} ${new Date(request.approvedAt).toLocaleTimeString('tr-TR')}</div>
+                            </div>
+                            ` : ''}
+
+                            ${request.status === 'rejected' ? `
+                            <div class="info-row">
+                                <div class="info-label">Reddeden:</div>
+                                <div class="info-value">${request.rejectedBy || request.manager}</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Red Sebebi:</div>
+                                <div class="info-value">
+                                    <div class="detail-text" style="background: #FFEBEE; color: #C62828;">${request.rejectionReason || 'Belirtilmemiş'}</div>
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            container.innerHTML = html;
+        }
+
+        function getLocationIcon(type) {
+            const icons = {
+                'city-local': '🏙️',
+                'city-external': '🚗',
+                'international': '🌍'
+            };
+            return icons[type] || '📍';
+        }
+
+        function getStatusBadge(status) {
+            const badges = {
+                'pending': '<span class="badge badge-pending">⏳ Bekliyor</span>',
+                'approved': '<span class="badge badge-approved">✅ Onaylandı</span>',
+                'rejected': '<span class="badge badge-rejected">❌ Reddedildi</span>'
+            };
+            return badges[status] || badges['pending'];
+        }
+
+        // Load requests on page load
+        loadRequests();
+    </script>
+</body>
+</html>
