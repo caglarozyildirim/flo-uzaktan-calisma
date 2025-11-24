@@ -197,13 +197,218 @@
                     manager: 'Ahmet Yılmaz',
                     managerEmail: 'ahmet.yilmaz@flo.com.tr',
                     hireDate: '2020-03-15'
+                },
+                {
+                    id: 2,
+                    name: 'Ayşe Demir',
+                    email: 'ayse.demir@flo.com.tr',
+                    sicil: 'FLO-002',
+                    position: 'Yazılım Geliştirici',
+                    department: 'Yazılım Geliştirme',
+                    birim: 'Teknoloji',
+                    grupAdi: 'Backend Geliştirme',
+                    manager: 'Ahmet Yılmaz',
+                    managerEmail: 'ahmet.yilmaz@flo.com.tr',
+                    hireDate: '2019-06-10'
+                },
+                {
+                    id: 3,
+                    name: 'Mehmet Kaya',
+                    email: 'mehmet.kaya@flo.com.tr',
+                    sicil: 'FLO-003',
+                    position: 'Ürün Yöneticisi',
+                    department: 'Ürün Yönetimi',
+                    birim: 'Dijital Ürünler',
+                    grupAdi: 'E-Ticaret Ürün Yönetimi',
+                    manager: 'Ahmet Yılmaz',
+                    managerEmail: 'ahmet.yilmaz@flo.com.tr',
+                    hireDate: '2021-01-20'
+                },
+                {
+                    id: 4,
+                    name: 'Zeynep Aydın',
+                    email: 'zeynep.aydin@flo.com.tr',
+                    sicil: 'FLO-004',
+                    position: 'UI/UX Tasarımcı',
+                    department: 'Tasarım',
+                    birim: 'Dijital Dönüşüm',
+                    grupAdi: 'Kullanıcı Deneyimi',
+                    manager: 'Ahmet Yılmaz',
+                    managerEmail: 'ahmet.yilmaz@flo.com.tr',
+                    hireDate: '2020-09-01'
                 }
             ];
             localStorage.setItem('users', JSON.stringify(users));
         }
 
         if (!localStorage.getItem('remoteworkRequests')) {
-            localStorage.setItem('remoteworkRequests', JSON.stringify([]));
+            // Create realistic mock requests
+            const now = new Date();
+            const users = JSON.parse(localStorage.getItem('users'));
+
+            const mockRequests = [
+                // Pending request - Evden çalışma (1 hafta)
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 2),
+                    userId: 1,
+                    userSicil: users[0].sicil,
+                    userName: users[0].name,
+                    userEmail: users[0].email,
+                    position: users[0].position,
+                    department: users[0].department,
+                    birim: users[0].birim,
+                    grupAdi: users[0].grupAdi,
+                    manager: users[0].manager,
+                    managerEmail: users[0].managerEmail,
+                    hireDate: users[0].hireDate,
+                    workLocation: 'city-local',
+                    workLocationText: 'Şehir İçi Görevlendirme',
+                    locationDetail: 'İstanbul, ev adresimden çalışacağım. Ekip ile tüm toplantılara online katılacağım ve iş akışını aksatmayacağım.',
+                    startDate: new Date(now.getTime() + 86400000 * 3).toISOString(),
+                    endDate: new Date(now.getTime() + 86400000 * 9).toISOString(),
+                    totalDays: 7,
+                    additionalNotes: 'Haftalık sprint toplantılarına online katılım sağlayacağım.',
+                    status: 'pending',
+                    createdAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000 * 2).toISOString()
+                },
+                // Pending request - Şehir dışı (3 gün)
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 1),
+                    userId: 2,
+                    userSicil: users[1].sicil,
+                    userName: users[1].name,
+                    userEmail: users[1].email,
+                    position: users[1].position,
+                    department: users[1].department,
+                    birim: users[1].birim,
+                    grupAdi: users[1].grupAdi,
+                    manager: users[1].manager,
+                    managerEmail: users[1].managerEmail,
+                    hireDate: users[1].hireDate,
+                    workLocation: 'city-external',
+                    workLocationText: 'Şehir Dışı Görevlendirme',
+                    locationDetail: 'Antalya\'da ailemle birlikte olacağım, otel odasından çalışacağım. Stabil internet bağlantım mevcut.',
+                    startDate: new Date(now.getTime() + 86400000 * 5).toISOString(),
+                    endDate: new Date(now.getTime() + 86400000 * 7).toISOString(),
+                    totalDays: 3,
+                    additionalNotes: 'Aile etkinliği nedeniyle Antalya\'dayım. Tüm iş sorumluluklarımı yerine getireceğim.',
+                    status: 'pending',
+                    createdAt: new Date(now.getTime() - 86400000).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000).toISOString()
+                },
+                // Approved request - Yurtdışı (2 hafta)
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 10),
+                    userId: 3,
+                    userSicil: users[2].sicil,
+                    userName: users[2].name,
+                    userEmail: users[2].email,
+                    position: users[2].position,
+                    department: users[2].department,
+                    birim: users[2].birim,
+                    grupAdi: users[2].grupAdi,
+                    manager: users[2].manager,
+                    managerEmail: users[2].managerEmail,
+                    hireDate: users[2].hireDate,
+                    workLocation: 'international',
+                    workLocationText: 'Yurt Dışı Görevlendirme',
+                    locationDetail: 'Portekiz, Lizbon\'dan çalışacağım. Dijital nomad çalışma mekanından online katılım sağlayacağım. İnternet hızı ve çalışma ortamı uygun.',
+                    startDate: new Date(now.getTime() + 86400000 * 7).toISOString(),
+                    endDate: new Date(now.getTime() + 86400000 * 20).toISOString(),
+                    totalDays: 14,
+                    additionalNotes: 'Türkiye saati ile uyumlu çalışacağım, sadece öğle arası 1 saat fark olacak.',
+                    status: 'approved',
+                    approvedBy: 'Ahmet Yılmaz',
+                    approvedAt: new Date(now.getTime() - 86400000 * 8).toISOString(),
+                    createdAt: new Date(now.getTime() - 86400000 * 10).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000 * 8).toISOString()
+                },
+                // Approved request - Evden çalışma (1 gün)
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 5),
+                    userId: 4,
+                    userSicil: users[3].sicil,
+                    userName: users[3].name,
+                    userEmail: users[3].email,
+                    position: users[3].position,
+                    department: users[3].department,
+                    birim: users[3].birim,
+                    grupAdi: users[3].grupAdi,
+                    manager: users[3].manager,
+                    managerEmail: users[3].managerEmail,
+                    hireDate: users[3].hireDate,
+                    workLocation: 'city-local',
+                    workLocationText: 'Şehir İçi Görevlendirme',
+                    locationDetail: 'Evden çalışacağım. Doktor randevusu nedeniyle ofise gelemeyeceğim ancak tüm gün çalışabileceğim.',
+                    startDate: new Date(now.getTime() + 86400000 * 1).toISOString(),
+                    endDate: new Date(now.getTime() + 86400000 * 1).toISOString(),
+                    totalDays: 1,
+                    additionalNotes: 'Randevu sabah 09:00-10:00 arasında. Sonrasında tam zamanlı çalışacağım.',
+                    status: 'approved',
+                    approvedBy: 'Ahmet Yılmaz',
+                    approvedAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
+                    createdAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000 * 4).toISOString()
+                },
+                // Rejected request - Şehir dışı
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 15),
+                    userId: 1,
+                    userSicil: users[0].sicil,
+                    userName: users[0].name,
+                    userEmail: users[0].email,
+                    position: users[0].position,
+                    department: users[0].department,
+                    birim: users[0].birim,
+                    grupAdi: users[0].grupAdi,
+                    manager: users[0].manager,
+                    managerEmail: users[0].managerEmail,
+                    hireDate: users[0].hireDate,
+                    workLocation: 'city-external',
+                    workLocationText: 'Şehir Dışı Görevlendirme',
+                    locationDetail: 'İzmir\'den çalışmak istiyorum. Ailemi ziyaret edeceğim.',
+                    startDate: new Date(now.getTime() - 86400000 * 10).toISOString(),
+                    endDate: new Date(now.getTime() - 86400000 * 6).toISOString(),
+                    totalDays: 5,
+                    additionalNotes: '',
+                    status: 'rejected',
+                    rejectedBy: 'Ahmet Yılmaz',
+                    rejectedAt: new Date(now.getTime() - 86400000 * 14).toISOString(),
+                    rejectionReason: 'Bu tarihler kritik sprint dönemine denk geliyor ve ofiste fiziksel varlığınız gerekiyor. Lütfen farklı tarihler için tekrar talep oluşturunuz.',
+                    createdAt: new Date(now.getTime() - 86400000 * 15).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000 * 14).toISOString()
+                },
+                // Approved - Evden çalışma (1 ay)
+                {
+                    id: 'RW-' + (Date.now() - 86400000 * 20),
+                    userId: 2,
+                    userSicil: users[1].sicil,
+                    userName: users[1].name,
+                    userEmail: users[1].email,
+                    position: users[1].position,
+                    department: users[1].department,
+                    birim: users[1].birim,
+                    grupAdi: users[1].grupAdi,
+                    manager: users[1].manager,
+                    managerEmail: users[1].managerEmail,
+                    hireDate: users[1].hireDate,
+                    workLocation: 'city-local',
+                    workLocationText: 'Şehir İçi Görevlendirme',
+                    locationDetail: 'Ev tadilatı nedeniyle evden çalışma talep ediyorum. Gerektiğinde ofise gelebilirim ancak günlük ofis çalışması zor olacak.',
+                    startDate: new Date(now.getTime() + 86400000 * 10).toISOString(),
+                    endDate: new Date(now.getTime() + 86400000 * 39).toISOString(),
+                    totalDays: 30,
+                    additionalNotes: 'Haftada 1-2 kez ofise gelmeyi planlıyorum. Önemli toplantılar için ofiste olabilirim.',
+                    status: 'approved',
+                    approvedBy: 'Ahmet Yılmaz',
+                    approvedAt: new Date(now.getTime() - 86400000 * 18).toISOString(),
+                    createdAt: new Date(now.getTime() - 86400000 * 20).toISOString(),
+                    updatedAt: new Date(now.getTime() - 86400000 * 18).toISOString()
+                }
+            ];
+
+            localStorage.setItem('remoteworkRequests', JSON.stringify(mockRequests));
         }
     </script>
 </body>
