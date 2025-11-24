@@ -122,12 +122,30 @@
         .feature-icon {
             font-size: 20px;
         }
+
+        .clear-cache-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-cache-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
     <div class="landing-container">
         <div class="landing-header">
             <div class="landing-logo">FLO<span style="font-weight: 300;">Connect</span></div>
+            <button class="clear-cache-btn" onclick="clearCache()">🔄 Cache Temizle</button>
         </div>
 
         <div class="landing-content">
@@ -182,6 +200,15 @@
     </div>
 
     <script>
+        // Clear cache function
+        function clearCache() {
+            if (confirm('Tüm localStorage verileri silinecek ve sayfa yenilenecek. Onaylıyor musunuz?')) {
+                localStorage.clear();
+                alert('Cache temizlendi! Sayfa yenileniyor...');
+                location.reload();
+            }
+        }
+
         // Initialize mock data if needed
         if (!localStorage.getItem('users')) {
             const users = [
