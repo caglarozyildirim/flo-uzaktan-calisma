@@ -278,18 +278,31 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
 
     <script>
-        // Authorized users list
-        const authorizedUsers = [
-            'yasin.atalay@flo.com.tr',
-            'seren.demir@flo.com.tr',
-            'meltem.evci@flo.com.tr',
-            'recep.kefeli@flo.com.tr',
-            'nihan.kural@flo.com.tr',
-            'bersan.oter@flo.com.tr',
-            'zeynep.sahin@flo.com.tr',
-            'sinem.ertekin@flo.com.tr',
-            'mujgan.uslu@flo.com.tr'
-        ];
+        // Load authorized users from localStorage (dynamic)
+        function getAuthorizedUsers() {
+            const users = JSON.parse(localStorage.getItem('reportAuthorizedUsers') || '[]');
+
+            // Initialize with default users if empty
+            if (users.length === 0) {
+                const defaultUsers = [
+                    { name: 'Yasin Atalay', email: 'yasin.atalay@flo.com.tr' },
+                    { name: 'Seren Demir', email: 'seren.demir@flo.com.tr' },
+                    { name: 'Meltem Evci', email: 'meltem.evci@flo.com.tr' },
+                    { name: 'Recep Kefeli', email: 'recep.kefeli@flo.com.tr' },
+                    { name: 'Nihan Kural', email: 'nihan.kural@flo.com.tr' },
+                    { name: 'Bersan Öter', email: 'bersan.oter@flo.com.tr' },
+                    { name: 'Zeynep Şahin', email: 'zeynep.sahin@flo.com.tr' },
+                    { name: 'Sinem Ertekin', email: 'sinem.ertekin@flo.com.tr' },
+                    { name: 'Müjgan Uslu', email: 'mujgan.uslu@flo.com.tr' }
+                ];
+                localStorage.setItem('reportAuthorizedUsers', JSON.stringify(defaultUsers));
+                return defaultUsers.map(u => u.email);
+            }
+
+            return users.map(u => u.email);
+        }
+
+        const authorizedUsers = getAuthorizedUsers();
 
         // Current user (for demo purposes)
         const currentUser = {
@@ -474,6 +487,7 @@
                             <th>Grup Adı</th>
                             <th>Yönetici</th>
                             <th>Lokasyon</th>
+                            <th>Talep Detayı</th>
                             <th>Tarih Aralığı</th>
                             <th>Gün</th>
                             <th>Durum</th>
@@ -494,6 +508,11 @@
                         <td>${request.grupAdi}</td>
                         <td>${request.manager}</td>
                         <td>${getLocationBadge(request.workLocation, request.workLocationText)}</td>
+                        <td style="max-width: 300px;">
+                            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${request.locationDetail}">
+                                ${request.locationDetail}
+                            </div>
+                        </td>
                         <td style="white-space: nowrap;">
                             ${new Date(request.startDate).toLocaleDateString('tr-TR')} -
                             ${new Date(request.endDate).toLocaleDateString('tr-TR')}

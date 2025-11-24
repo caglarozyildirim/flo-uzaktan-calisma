@@ -384,10 +384,14 @@
                         <thead>
                             <tr>
                                 <th>Talep No</th>
+                                <th>Sicil</th>
                                 <th>Çalışan</th>
-                                <th>Çalışma Lokasyonu</th>
+                                <th>Pozisyon</th>
+                                <th>Birim</th>
+                                <th>Grup Adı</th>
+                                <th>Lokasyon</th>
                                 <th>Tarih Aralığı</th>
-                                <th>Gün Sayısı</th>
+                                <th>Gün</th>
                                 <th>Durum</th>
                                 <th>İşlem Tarihi</th>
                                 <th>İşlemler</th>
@@ -405,16 +409,17 @@
                 html += `
                     <tr>
                         <td><strong>${request.id}</strong></td>
-                        <td>
-                            <div style="font-weight: 600;">${request.userName}</div>
-                            <div style="font-size: 12px; color: #666;">${request.position}</div>
-                        </td>
+                        <td><strong>${request.userSicil}</strong></td>
+                        <td>${request.userName}</td>
+                        <td style="font-size: 13px;">${request.position}</td>
+                        <td style="font-size: 13px;">${request.birim}</td>
+                        <td style="font-size: 13px;">${request.grupAdi}</td>
                         <td>${request.workLocationText}</td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             ${new Date(request.startDate).toLocaleDateString('tr-TR')} -
                             ${new Date(request.endDate).toLocaleDateString('tr-TR')}
                         </td>
-                        <td><strong>${request.totalDays} Gün</strong></td>
+                        <td><strong>${request.totalDays}</strong></td>
                         <td>${statusBadge}</td>
                         <td>${actionDate}</td>
                         <td>

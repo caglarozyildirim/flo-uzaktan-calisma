@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapor Yetkisi Yönetimi - FLOConnect</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .auth-list {
+            list-style: none;
+        }
+
+        .auth-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #F0F0F0;
+            transition: background 0.2s;
+        }
+
+        .auth-item:hover {
+            background: #F8F9FA;
+        }
+
+        .auth-item:last-child {
+            border-bottom: none;
+        }
+
+        .auth-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .auth-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-burgundy), var(--primary-orange));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .auth-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .auth-details p {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .auth-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-remove {
+            background: #F44336;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-remove:hover {
+            background: #E53935;
+        }
+
+        .add-user-form {
+            display: grid;
+            gap: 16px;
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        .btn-add {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #45A049;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #E3F2FD 0%, #F5F9FF 100%);
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-banner-content {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .info-banner-icon {
+            font-size: 32px;
+        }
+
+        .info-banner-text h3 {
+            margin: 0 0 8px 0;
+            color: #1565C0;
+            font-size: 16px;
+        }
+
+        .info-banner-text p {
+            margin: 0;
+            color: #1976D2;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">FLO<span style="font-weight: 300;">Connect</span></div>
+        <button class="notification-btn">
+            🔔 Bildirimler
+        </button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">İK</div>
+                <div class="user-name">İK Yöneticisi</div>
+                <div class="user-title">İnsan Kaynakları</div>
+                <div class="user-role">Admin</div>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">📊</span>
+                            QR Giriş - Çıkış
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">🏖️</span>
+                            İzin Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link has-submenu">
+                            <span class="nav-icon">✈️</span>
+                            Seyahat Modülü
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            Ofis Dışı Çalışma
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="raporlar.html" class="sub-link"><span style="font-size: 16px;">📊</span> Raporlar</a></li>
+                            <li><a href="rapor-yetkisi.html" class="sub-link active"><span style="font-size: 16px;">🔐</span> Rapor Yetkileri</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">📄</span>
+                            Bordro
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            Ayarlar
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a>
+                <span class="separator">›</span>
+                <a href="#">Ofis Dışı Çalışma</a>
+                <span class="separator">›</span>
+                <span>Rapor Yetkileri</span>
+            </div>
+
+            <!-- Page Header -->
+            <div style="margin-bottom: 24px;">
+                <h1 style="font-size: 28px; color: var(--primary-burgundy); margin-bottom: 8px;">Rapor Yetkisi Yönetimi</h1>
+                <p style="color: #666; font-size: 14px;">Rapor ekranına erişim yetkisi olan kullanıcıları yönetin.</p>
+            </div>
+
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <div class="info-banner-content">
+                    <div class="info-banner-icon">ℹ️</div>
+                    <div class="info-banner-text">
+                        <h3>Rapor Yetkisi Hakkında</h3>
+                        <p>Bu sayfadan rapor ekranına erişim yetkisi olan kullanıcıları ekleyebilir veya kaldırabilirsiniz.
+                        Yetkili kullanıcılar tüm ofis dışı çalışma taleplerini görüntüleyebilir ve raporlayabilir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add User Form -->
+            <div class="auth-card">
+                <h3 style="margin-bottom: 16px; color: var(--primary-burgundy);">Yeni Yetkili Kullanıcı Ekle</h3>
+                <div class="add-user-form">
+                    <div class="form-row">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label required">Ad Soyad</label>
+                            <input type="text" id="newUserName" class="form-input" placeholder="Örn: Yasin Atalay">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label required">E-posta Adresi</label>
+                            <input type="email" id="newUserEmail" class="form-input" placeholder="Örn: yasin.atalay@flo.com.tr">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" style="visibility: hidden;">Ekle</label>
+                            <button class="btn-add" onclick="addUser()">➕ Ekle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authorized Users List -->
+            <div class="auth-card">
+                <h3 style="margin-bottom: 16px; color: var(--primary-burgundy);">
+                    Yetkili Kullanıcılar (<span id="userCount">0</span>)
+                </h3>
+                <ul class="auth-list" id="authorizedUsersList"></ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load authorized users from localStorage
+        function loadAuthorizedUsers() {
+            const users = JSON.parse(localStorage.getItem('reportAuthorizedUsers') || '[]');
+
+            // Initialize with default users if empty
+            if (users.length === 0) {
+                const defaultUsers = [
+                    { name: 'Yasin Atalay', email: 'yasin.atalay@flo.com.tr' },
+                    { name: 'Seren Demir', email: 'seren.demir@flo.com.tr' },
+                    { name: 'Meltem Evci', email: 'meltem.evci@flo.com.tr' },
+                    { name: 'Recep Kefeli', email: 'recep.kefeli@flo.com.tr' },
+                    { name: 'Nihan Kural', email: 'nihan.kural@flo.com.tr' },
+                    { name: 'Bersan Öter', email: 'bersan.oter@flo.com.tr' },
+                    { name: 'Zeynep Şahin', email: 'zeynep.sahin@flo.com.tr' },
+                    { name: 'Sinem Ertekin', email: 'sinem.ertekin@flo.com.tr' },
+                    { name: 'Müjgan Uslu', email: 'mujgan.uslu@flo.com.tr' }
+                ];
+                localStorage.setItem('reportAuthorizedUsers', JSON.stringify(defaultUsers));
+                return defaultUsers;
+            }
+
+            return users;
+        }
+
+        // Display authorized users
+        function displayUsers() {
+            const users = loadAuthorizedUsers();
+            const container = document.getElementById('authorizedUsersList');
+            const countElement = document.getElementById('userCount');
+
+            countElement.textContent = users.length;
+
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 64px; margin-bottom: 16px;">👥</div>
+                        <h3>Henüz Yetkili Kullanıcı Yok</h3>
+                        <p>Yukarıdaki formu kullanarak yetkili kullanıcı ekleyebilirsiniz.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            users.forEach((user, index) => {
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                html += `
+                    <li class="auth-item">
+                        <div class="auth-info">
+                            <div class="auth-avatar">${initials}</div>
+                            <div class="auth-details">
+                                <h4>${user.name}</h4>
+                                <p>${user.email}</p>
+                            </div>
+                        </div>
+                        <div class="auth-actions">
+                            <button class="btn-remove" onclick="removeUser(${index})">🗑️ Kaldır</button>
+                        </div>
+                    </li>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Add new user
+        function addUser() {
+            const nameInput = document.getElementById('newUserName');
+            const emailInput = document.getElementById('newUserEmail');
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!name || !email) {
+                alert('Lütfen ad soyad ve e-posta alanlarını doldurunuz.');
+                return;
+            }
+
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Lütfen geçerli bir e-posta adresi giriniz.');
+                return;
+            }
+
+            const users = loadAuthorizedUsers();
+
+            // Check if email already exists
+            if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                alert('Bu e-posta adresi zaten yetkili kullanıcılar listesinde bulunmaktadır.');
+                return;
+            }
+
+            // Add new user
+            users.push({ name, email });
+            localStorage.setItem('reportAuthorizedUsers', JSON.stringify(users));
+
+            // Clear form
+            nameInput.value = '';
+            emailInput.value = '';
+
+            // Refresh display
+            displayUsers();
+
+            alert('Kullanıcı başarıyla eklendi!');
+        }
+
+        // Remove user
+        function removeUser(index) {
+            if (!confirm('Bu kullanıcıyı yetkili listesinden kaldırmak istediğinize emin misiniz?')) {
+                return;
+            }
+
+            const users = loadAuthorizedUsers();
+            users.splice(index, 1);
+            localStorage.setItem('reportAuthorizedUsers', JSON.stringify(users));
+
+            displayUsers();
+
+            alert('Kullanıcı başarıyla kaldırıldı!');
+        }
+
+        // Initial load
+        displayUsers();
+    </script>
+</body>
+</html>
